@@ -1,58 +1,68 @@
 
-# Module 2 Summative Lab
+# Introduction
 
-## Introduction
+For today's section, we're going to work on a single big lab to apply what we've learned so far about APIs, databases and hypothesis testing! We will be making use of SQLite and MongoDB Atlas
 
-For today's section, we're going to work on a single big lab to apply everything we've learned in Mod 2!
+### About This Lab
 
-## About This Lab
+A quick note before getting started--this lab isn't like other labs you seen so far. This lab is meant to take the whole day to complete, so it's much longer and more challenging than the average labs you've seen so far. If you feel that you might be struggling a bit, don't fret--that's by design! With everything we've learned about statistics, APIs, and Databases, the best way to test our knowledge of it is to build something substantial!
 
-A quick note before getting started--this lab isn't like other labs you seen so far. This lab is meant to take ~8 hours to complete, so it's much longer and more challenging than the average labs you've seen so far. If you feel like this lab is challenging or that you might be struggling a bit, don't fret--that's by design! With everything we've learned about Web Scraping, APIs, and Databases, the best way to test our knowledge of it is to build something substantial! 
+# The Context
 
-## The Project
+You have just started your new job on the data science team at ESPN. The team is very busy and on an extreamly tight deadline. Your new boss has asked you to solve two problems on your first day:
 
-In this lab, we're going to make use of everything we've learned about APIs, databases, and Object-Oriented Programming to **_Extract, Transform, and Load_** (or **_ETL_**, for short) some data from a SQL database into a MongoDB Database. 
 
-You'll find a database containing information about soccer teams and the matches they've played in the file `database.sqlite`. For this project, our goal is to get the data we think is important from this SQL database, do some calculations and data transformation, and then store everything in a MongoDB database. 
+### 1. Designing a Data Pipeline
+Every year we need to move our raw data from a SQLite database, aggregate it, and store it in a Mongodb Atlas instance where all of our different analysts can have access to these statistics. In order to make this process as painless as possbile you are charged with automating this once long and tendious process.
 
-Let's get into the specifics of this project.
-
-### The Goal
-
-Start by examining the data dictionary for the SQL database we'll be working with, which comes from this [kaggle page](https://www.kaggle.com/laudanum/footballdelphi).  Familiarize yourself with the tables it contains, and what each column means. We'll be using this database to get data on each soccer team, calculate some summary statistics, and then store each in a MongoDB database. 
-
-Upon completion of this lab, each unique team in this dataset should have a record in the MongoDB instance containing the following information:
-
-* The name of the team
-* The total number of goals scored by the team during the 2011 season
-* The total number of wins the team earned during the 2011 season
-* A histogram visualization of the team's wins and losses for the 2011 season (store the visualization directly by assigning it to a variable)
-* The team's win percentage on days where it was raining during games in the 2011 season. 
+Create a function which will take the Season as an arguement and execute the following:
+```python
+def pipeline(season):
+    pass
+```
+* Aggregate match statistics from a SQLite database in the file `database.sqlite`
+    * A data dictionary available [here](https://www.kaggle.com/laudanum/footballdelphi)
+* Combine match information with weather data from the [DarkSky API](https://darksky.net/dev)
+* Insert data into MongoDB Atlas where each row contains the following information:
+        * Team Name
+        * League (either English Premier League (E0) or Bundesliga (D1))
+        * Season
+        * Total number of goals scored by the team during the season
+        * Total number of wins the team earned during the season
+        * Team's win percentage on days where it was raining during games in the season
 
 #### Getting the Weather Data
 
 Note that for this last calculation, you'll need to figure out if it was raining or not during the game. The database itself does not contain this information, but it does contain the date on which the game was played. For this, you'll need to use the [DarkSky API](https://darksky.net/dev) to get the historical weather data for that day. Note that each game is played in a different location, and this information is not contained in our SQL database. However, the teams in this database are largely german, so go ahead and just use the weather in Berlin, Germany as a proxy for this information. If it was raining in Berlin on the day the game was played, count that as rain game--**_you do not need to try and figure out the actual weather at each game's location, because we don't have that information!_**
 
-#### NOTE: The DarkSky API is limited to 1000 free API calls a day, so be sure to test your model on very small samples. Otherwise, you'll hit the rate limit!
-
-## Project Architecture
-
-Unlike previous labs, this lab is more open-ended, and will require you to make design decisions and plan out your strategy for building a system with this many working parts. However, **_using Object-Oriented Programming is a requirement for this project--you must create at least 2 separate, well-structured classes in your solution!_** Although it may seem easier to "just start coding", this is a classic beginner's mistake. Instead, think about separating out the different functionalities you'll need to reach your goal, and then build classes to handle each. For instance, at a minimum, you'll need to:
-
-* Query the SQL database
-* Calculate summary statistics
-* Get the weather data from the DarkSky API
-* Load the data into MongoDB
-
-We **_strongly recommend_** you consider creating separate classes for handling at least some of these tasks.  Be sure to plan the inputs, outputs, and methods for each class before you begin coding! 
-
-**_NOTE:_** We have provided some empty classes below. You are welcome to delete them and use a different architecture for this project if you so choose.  You do not have to use each of them, they are just there to give you an idea of what sorts of classes you may want to consider using.
+**NOTE: The DarkSky API is limited to 1000 free API calls a day, so be sure to test your model on very small samples. Otherwise, you'll hit the rate limit!**
 
 ### Rapid Prototyping and Refactoring
 
-It's totally okay to try to get a task working without using OOP. For instance, when experimenting with the DarkSky API for getting historical weather data, it makes sense to just write the code in the cells and rapidly iterate until you get it all working. However, once you get it working, you're not done--you should then **_Refactor_** your code into functions or classes to make your code more modular, reusable, understandable, and maintainable! 
+When experimenting with the DarkSky API for getting historical weather data, it makes sense to just write the code in the cells and rapidly iterate until you get it all working. However, once you get it working, you're not done--you should then **_Refactor_** your code into functions to make your code more modular, reusable, understandable, and maintainable!
 
-In short--do what you need to do to get each separate piece of functionality working, and then refactor it into a class after you've figured it out!
+In short--do what you need to do to get each separate piece of functionality working, and then refactor it into functions after you've figured it out!
+
+### MongoDB Atlas
+
+To set up your MongoDB Atlas instance follow these [directions](https://docs.google.com/document/d/1ghOi6jd0Nw4jOOOevuUpncuRAEOdEEC28NUI0pqUyFA/edit)
+
+If you need a refresher on using Mongodb check out their docs [here.](https://api.mongodb.com/python/current/tutorial.html)
+
+#### Deliverable
+- A well documented .py file containing all of your code for the pipeline function
+- Insert data from the 2016/17 and 2017/18 season from the SQLite database into your MongoDB Atlas instance
+
+----------------------------------------------------------------------------------------------------
+
+### 2. Hypothesis Testing
+By the end of day today ESPN needs to make a decision about which European league broadcasting rights it wants to buy. The budget for the team only allows us to purchase the rights to either the English Premier League or the German Bundesliga. Your boss has decided that American audiences are more likely to tune into soccer games where there are a high number of goals scored and she has a hunch that the English Premier League has a higher goals per game. We need you to run an analysis of the two leagues to test her hunch:
+
+__Does the English Premier League have more goals per game than in Bundesliga in the 2017/2018 season?__
+
+
+#### Deliverable
+The deliverable here is a well documented jupyter notebook detailing your process and provide a final recommendation to your boss regarding the broadcasting rights. Make sure that you define the null and alternative hypothesis, describe which statistical test you used and why it is appropriate. All assumptions you are making should be made explicit.
 
 ### Some Final Advice
 
@@ -66,19 +76,6 @@ In short:
 
 Good luck--we look forward to seeing your completed project!
 
-
-```python
-# You don't have to use these classes, but we recommend them as a good place to start!
-class WeatherGetter():
-    pass
-```
-
-
-```python
-class MongoHandler():
-    pass
-```
-
 # Summary
 
-In this lab, we dug deep and used everything we've learned so far about python programming, databases, HTTP requests and API calls to ETL data from a SQL database into a MongoDB instance!
+In this lab, we dug deep and used everything we've learned so far about python programming, databases, HTTP requests and API calls to ETL data from a SQL database into a MongoDB Atlas instance!
