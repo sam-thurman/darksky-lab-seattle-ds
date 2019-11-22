@@ -51,14 +51,14 @@ If you need a refresher on using MongoDB check out their docs [here.](https://ap
 
 #### Deliverables
 - A well documented `.py` file containing all of your code for the pipeline function
-- Insert data from the 2016/17 and 2017/18 season from the SQLite database into your MongoDB Atlas instance
+- Insert data from the 2011/12 and 2012/13 season from the SQLite database into your MongoDB Atlas instance
 
 ----------------------------------------------------------------------------------------------------
 
 ### 2. Hypothesis Testing
 By the end of day today ESPN needs to make a decision about which European league broadcasting rights it wants to buy. The budget for the team only allows us to purchase the rights to either the English Premier League or the German Bundesliga. Your boss has decided that American audiences are more likely to tune into soccer games where there are a high number of goals scored and she has a hunch that the English Premier League has a higher goals per game. We need you to run an analysis of the two leagues to test her hunch:
 
-__Does the English Premier League have more goals per game than in Bundesliga in the 2017/2018 season?__
+__Does the English Premier League have more goals per game than in Bundesliga in the 2011/2012 season?__
 
 
 #### Deliverable
