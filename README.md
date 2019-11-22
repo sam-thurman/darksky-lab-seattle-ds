@@ -9,13 +9,13 @@ A quick note before getting started--this lab isn't like other labs you seen so 
 
 # The Context
 
-You have just started your new job on the data science team at ESPN. The team is very busy and on an extreamly tight deadline. Your new boss has asked you to solve two problems on your first day:
+You have just started your new job on the data science team at ESPN. The team is very busy and on an extremely tight deadline. Your new boss has asked you to solve two problems on your first day:
 
 
 ### 1. Designing a Data Pipeline
-Every year we need to move our raw data from a SQLite database, aggregate it, and store it in a Mongodb Atlas instance where all of our different analysts can have access to these statistics. In order to make this process as painless as possbile you are charged with automating this once long and tendious process.
+Every year we need to move our raw data from a SQLite database, aggregate it, and store it in a MongoDB Atlas instance where all of our different analysts can have access to these statistics. In order to make this process as painless as possible you are charged with automating this once long and tedious process.
 
-Create a function which will take the Season as an arguement and execute the following:
+Create a function which will take the Season as an argument and execute the following:
 ```python
 def pipeline(season):
     pass
@@ -23,17 +23,17 @@ def pipeline(season):
 * Aggregate match statistics from a SQLite database in the file `database.sqlite`
     * A data dictionary available [here](https://www.kaggle.com/laudanum/footballdelphi)
 * Combine match information with weather data from the [DarkSky API](https://darksky.net/dev)
-* Insert data into MongoDB Atlas where each row contains the following information:
-        * Team Name
-        * League (either English Premier League (E0) or Bundesliga (D1))
-        * Season
-        * Total number of goals scored by the team during the season
-        * Total number of wins the team earned during the season
-        * Team's win percentage on days where it was raining during games in the season
+* Insert data into MongoDB Atlas where each record contains the following information:
+   * Team Name
+   * League (either English Premier League (E0) or Bundesliga (D1))
+   * Season
+   * Total number of goals scored by the team during the season
+   * Total number of wins the team earned during the season
+   * Team's win percentage on days where it was raining during games in the season
 
 #### Getting the Weather Data
 
-Note that for this last calculation, you'll need to figure out if it was raining or not during the game. The database itself does not contain this information, but it does contain the date on which the game was played. For this, you'll need to use the [DarkSky API](https://darksky.net/dev) to get the historical weather data for that day. Note that each game is played in a different location, and this information is not contained in our SQL database. However, the teams in this database are largely german, so go ahead and just use the weather in Berlin, Germany as a proxy for this information. If it was raining in Berlin on the day the game was played, count that as rain game--**_you do not need to try and figure out the actual weather at each game's location, because we don't have that information!_**
+Note that for this last calculation, you'll need to figure out if it was raining or not during the game. The database itself does not contain this information, but it does contain the date on which the game was played. For this, you'll need to use the [DarkSky API](https://darksky.net/dev) to get the historical weather data for that day. Note that each game is played in a different location, and this information is not contained in our SQL database. However, the teams in this database are largely German, so go ahead and just use the weather in Berlin, Germany as a proxy for this information. If it was raining in Berlin on the day the game was played, count that as rain game--**_you do not need to try and figure out the actual weather at each game's location, because we don't have that information!_**
 
 **NOTE: The DarkSky API is limited to 1000 free API calls a day, so be sure to test your model on very small samples. Otherwise, you'll hit the rate limit!**
 
@@ -47,10 +47,10 @@ In short--do what you need to do to get each separate piece of functionality wor
 
 To set up your MongoDB Atlas instance follow these [directions](https://docs.google.com/document/d/1ghOi6jd0Nw4jOOOevuUpncuRAEOdEEC28NUI0pqUyFA/edit)
 
-If you need a refresher on using Mongodb check out their docs [here.](https://api.mongodb.com/python/current/tutorial.html)
+If you need a refresher on using MongoDB check out their docs [here.](https://api.mongodb.com/python/current/tutorial.html)
 
-#### Deliverable
-- A well documented .py file containing all of your code for the pipeline function
+#### Deliverables
+- A well documented `.py` file containing all of your code for the pipeline function
 - Insert data from the 2016/17 and 2017/18 season from the SQLite database into your MongoDB Atlas instance
 
 ----------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ __Does the English Premier League have more goals per game than in Bundesliga in
 
 
 #### Deliverable
-The deliverable here is a well documented jupyter notebook detailing your process and provide a final recommendation to your boss regarding the broadcasting rights. Make sure that you define the null and alternative hypothesis, describe which statistical test you used and why it is appropriate. All assumptions you are making should be made explicit.
+The deliverable here is a well documented jupyter notebook detailing your process and provide a final recommendation to your boss regarding the broadcasting rights. Make sure that you define the null and alternative hypotheses, and describe which statistical test you used and why it is appropriate. All assumptions you are making should be made explicit.
 
 ### Some Final Advice
 
@@ -78,4 +78,4 @@ Good luck--we look forward to seeing your completed project!
 
 # Summary
 
-In this lab, we dug deep and used everything we've learned so far about python programming, databases, HTTP requests and API calls to ETL data from a SQL database into a MongoDB Atlas instance!
+In this lab, we dug deep and used everything we've learned so far about Python programming, databases, HTTP requests and API calls to ETL data from a SQL database into a MongoDB Atlas instance!
