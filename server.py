@@ -10,7 +10,7 @@ cur = sqlite3.connect('database.sqlite').cursor()
 def get_season_games(season):
     wanted_match_df = pd.DataFrame(cur.execute(f"""SELECT HomeTeam, AwayTeam, Div AS league, Season, FTHG, FTAG, FTR, Date
                                                     FROM matches
-                                                    WHERE season == {season} OR league = 'E0' OR league = 'D1'
+                                                    WHERE season == {season} AND (league = 'E0' OR league = 'D1')
                                                     """).fetchall())
     wanted_match_df.columns = [x[0] for x in cur.description]
     return wanted_match_df
@@ -19,8 +19,10 @@ def get_rainy(time):
     url = f'https://api.darksky.net/forecast/50d46873ca88e25f973adf8228bf2275/52.5200,13.4050,{time}T12:00:00'
     response = requests.get(url)
     data = json.loads(response.text)
-    if 'icon' in data['daily']['data'][0].keys():
-        return 'rain' in data['daily']['data'][0]['icon']
+    if 'daily' in data.keys():
+        if 'data' in data['daily'].keys():
+            if 'icon' in data['daily']['data'][0].keys():
+                return 'rain' in data['daily']['data'][0]['icon']
     return False
 
 def add_rainy(df):
