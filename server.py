@@ -8,7 +8,8 @@ import sqlite3
 cur = sqlite3.connect('database.sqlite').cursor()
 
 def get_season_games(season):
-    wanted_match_df = pd.DataFrame(cur.execute(f"""SELECT HomeTeam, AwayTeam, Div AS league, Season, FTHG, FTAG, FTR, Date
+    wanted_match_df = pd.DataFrame(cur.execute(f"""SELECT HomeTeam, AwayTeam, Div AS league, Season, 
+                                                        FTHG, FTAG, FTR, Date
                                                     FROM matches
                                                     WHERE season == {season} AND (league = 'E0' OR league = 'D1')
                                                     """).fetchall())
@@ -16,7 +17,8 @@ def get_season_games(season):
     return wanted_match_df
 
 def get_rainy(time):
-    url = f'https://api.darksky.net/forecast/50d46873ca88e25f973adf8228bf2275/52.5200,13.4050,{time}T12:00:00'
+    api_key = json.load(open ('pwds.json'))
+    url = f'https://api.darksky.net/forecast/{api_key["api_key"]}/52.5200,13.4050,{time}T12:00:00'
     response = requests.get(url)
     data = json.loads(response.text)
     if 'daily' in data.keys():
@@ -75,3 +77,11 @@ def mongo_handler(stats_df):
     db.teamResults.insert_many(dictionary_list)
     return db.teamResults
 
+def pipeline(season):
+    games = get_season_games(season)
+    print("got season games")
+    with_rain = add_rainy(games)
+    print("got season games w rain")
+    stats = get_stats(with_rain)
+    print("got stats")
+    mongo_handler(stats)
